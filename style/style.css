@@ -1,0 +1,82 @@
+body {
+    background-image: url("../image/patternpad-2025-09-18-20-34-52.png");
+    background-size: cover;
+    font-family: "Raleway";
+    margin: 0;
+    padding: 0;
+}
+
+#nav {
+    width: 100%;
+    height: 24dvh;
+    background-color: #fff0ce;
+    position: absolute;
+    top: 0;
+}
+
+#nav img {
+    max-height: 20dvh;
+    width: fit-content;
+}
+
+#nav span {
+    font-size: 3rem;
+}
+.smallFlexLeft{
+    display: flex;
+    flex-direction: row;
+}
+#main {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-image: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(2px);
+    border: 4px solid #fff0ce;
+    /* background-color: #fff0ce; */
+    overflow: hidden;
+}
+#top{
+    background-color: #fff0ce;
+    font-size: clamp(.5rem, 1.6rem + 0.5vw, 2rem);
+}
+#main input{
+    border: 2px solid #fff0ce;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+#main a{
+    color: rgba(0, 0, 0, 0.4);
+    transition: all .5s;
+}
+#submitBtn{
+    /* all: unset; */
+    outline: none;
+    border: 2px solid #fff0ce;
+    background-color: #fff;
+    transition: all .5s;
+}
+#main a:hover{
+    opacity: .5;
+    transition: all .5s;
+}
+#submitBtn:hover{
+    background-color: #fff0ce;
+    transition: all .5s;
+    
+}
+@media (max-width:720px) {
+    
+    #main {
+        width: 80dvw;
+        min-height: 80dvw;
+        /* min-height:100dvh; */
+        height: fit-content;
+    }
+    .smallFlexLeft{
+        flex-direction: column;
+    }
+}

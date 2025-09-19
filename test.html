@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Siswa - Tabel Responsif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .controls {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f0f4f8;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            display: flex;
+            max-width: 500px;
+        }
+        
+        .search-box input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px 0 0 6px;
+            font-size: 1rem;
+        }
+        
+        .search-box button {
+            padding: 12px 20px;
+            background-color: #4b6cb7;
+            color: white;
+            border: none;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .search-box button:hover {
+            background-color: #3a559d;
+        }
+        
+        .view-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .view-options button {
+            padding: 10px 16px;
+            background-color: #5a7bc0;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .view-options button:hover {
+            background-color: #4b6cb7;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        th {
+            background-color: #f0f4f8;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+        }
+        
+        th:hover {
+            background-color: #e0e7f1;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        tr:hover {
+            background-color: #edf2f7;
+        }
+        
+        .gender-male {
+            color: #2c5282;
+            font-weight: 500;
+        }
+        
+        .gender-female {
+            color: #9c4221;
+            font-weight: 500;
+        }
+        
+        .json-container {
+            display: none;
+            padding: 20px;
+            background-color: #2d3748;
+            color: #e2e8f0;
+            border-radius: 6px;
+            margin: 20px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        .json-container pre {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .view-options {
+                align-self: center;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .search-box input {
+                padding: 10px;
+            }
+            
+            .search-box button, .view-options button {
+                padding: 10px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Data Siswa</h1>
+            <p class="description">Daftar siswa dengan fitur pencarian, penyortiran, dan tampilan data dalam format JSON</p>
+        </header>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Cari siswa berdasarkan nama, NISN, atau gender...">
+                <button id="searchButton">Cari</button>
+            </div>
+            
+            <div class="view-options">
+                <button id="showTable">Tampilkan Tabel</button>
+                <button id="showJson">Tampilkan JSON</button>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="studentsTable">
+                <thead>
+                    <tr>
+                        <th data-sort="id">ID ↗</th>
+                        <th data-sort="nisn">NISN ↗</th>
+                        <th data-sort="nama">Nama ↗</th>
+                        <th data-sort="gender">Gender ↗</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Data akan diisi oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="json-container" id="jsonContainer">
+            <pre id="jsonContent"></pre>
+        </div>
+        
+        <div class="footer">
+            <p>Total <span id="totalCount">36</span> siswa | © 2023 Data Siswa</p>
+        </div>
+    </div>
+
+    <script>
+        // Data siswa
+        const students = [
+            { id: 1, nisn: "202523180", nama: "Adhelia Khairunissa Tofari", gender: "PEREMPUAN" },
+            { id: 2, nisn: "202523181", nama: "Adilah Hammam Akram", gender: "LAKI-LAKI" },
+            { id: 3, nisn: "202523182", nama: "Adinda Afifah Putri", gender: "PEREMPUAN" },
+            { id: 4, nisn: "202523183", nama: "Adzan Ahlil Fiqri", gender: "LAKI-LAKI" },
+            { id: 5, nisn: "202523184", nama: "Aira Saskia Sahwa", gender: "PEREMPUAN" },
+            { id: 6, nisn: "202523185", nama: "Almira Rakhadhiya Aryacitadi", gender: "PEREMPUAN" },
+            { id: 7, nisn: "202523186", nama: "Annisa Maharani", gender: "PEREMPUAN" },
+            { id: 8, nisn: "202523187", nama: "Annisah Agustin", gender: "PEREMPUAN" },
+            { id: 9, nisn: "202523188", nama: "Arif Raffy Fadlurahman", gender: "LAKI-LAKI" },
+            { id: 10, nisn: "202523189", nama: "Aryo Aji Sadewo", gender: "LAKI-LAKI" },
+            { id: 11, nisn: "202523190", nama: "Cahaya", gender: "PEREMPUAN" },
+            { id: 12, nisn: "202523191", nama: "Callyla Sakhi Faiha", gender: "PEREMPUAN" },
+            { id: 13, nisn: "202523192", nama: "Dedy Anang Setiawan", gender: "LAKI-LAKI" },
+            { id: 14, nisn: "202523193", nama: "Deje Enne Dani Rosaline", gender: "PEREMPUAN" },
+            { id: 15, nisn: "202523194", nama: "Dewa Nyoman Zed Zamuel Zouseuf", gender: "LAKI-LAKI" },
+            { id: 16, nisn: "202523195", nama: "Fersya Wulanda", gender: "PEREMPUAN" },
+            { id: 17, nisn: "202523196", nama: "Ihsan Hafidz Assidiq", gender: "LAKI-LAKI" },
+            { id: 18, nisn: "202523197", nama: "Intan Nurhikmah", gender: "PEREMPUAN" },
+            { id: 19, nisn: "202523198", nama: "K'satria Ali", gender: "LAKI-LAKI" },
+            { id: 20, nisn: "202523199", nama: "Marcellino", gender: "LAKI-LAKI" },
+            { id: 21, nisn: "202523200", nama: "Muhammad Fauzan Kamal Putra", gender: "LAKI-LAKI" },
+            { id: 22, nisn: "202523201", nama: "Muhammad Rafa Fadilah", gender: "LAKI-LAKI" },
+            { id: 23, nisn: "202523202", nama: "Najwa Fajrina Ayatul Husna", gender: "PEREMPUAN" },
+            { id: 24, nisn: "202523203", nama: "Nauval Arief Hibatulloh", gender: "LAKI-LAKI" },
+            { id: 25, nisn: "202523204", nama: "Naysheilla Bilqis Heryanto", gender: "PEREMPUAN" },
+            { id: 26, nisn: "202523205", nama: "Nazmu Toriq", gender: "LAKI-LAKI" },
+            { id: 27, nisn: "202523206", nama: "Qisya Awfiyah Ramadhani", gender: "PEREMPUAN" },
+            { id: 28, nisn: "202523207", nama: "Rambuana Ahmad Adnan", gender: "LAKI-LAKI" },
+            { id: 29, nisn: "202523208", nama: "Rayhan Saputra", gender: "LAKI-LAKI" },
+            { id: 30, nisn: "202523209", nama: "Rayvan Irfansyah", gender: "LAKI-LAKI" },
+            { id: 31, nisn: "202523210", nama: "Rivael Lionel Messi Boryan", gender: "LAKI-LAKI" },
+            { id: 32, nisn: "202523211", nama: "Saddam Qadafi Nurama", gender: "LAKI-LAKI" },
+            { id: 33, nisn: "202523212", nama: "Safa Oktafianti", gender: "PEREMPUAN" },
+            { id: 34, nisn: "202523213", nama: "Salsa Nabila", gender: "PEREMPUAN" },
+            { id: 35, nisn: "202523214", nama: "Siti Syeera Azzahrah", gender: "PEREMPUAN" },
+            { id: 36, nisn: "202523215", nama: "Syadira Putri Aulia", gender: "PEREMPUAN" }
+        ];
+
+        // Elemen DOM
+        const tableBody = document.getElementById('tableBody');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const showTableButton = document.getElementById('showTable');
+        const showJsonButton = document.getElementById('showJson');
+        const tableContainer = document.querySelector('.table-container');
+        const jsonContainer = document.getElementById('jsonContainer');
+        const jsonContent = document.getElementById('jsonContent');
+        const totalCount = document.getElementById('totalCount');
+        const tableHeaders = document.querySelectorAll('th');
+
+        // Variabel untuk sorting
+        let currentSort = {
+            column: 'id',
+            direction: 'asc'
+        };
+
+        // Fungsi untuk menampilkan data dalam tabel
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            totalCount.textContent = data.length;
+            
+            data.forEach(student => {
+                const row = document.createElement('tr');
+                
+                // Tambahkan class berdasarkan gender
+                const genderClass = student.gender === 'LAKI-LAKI' ? 'gender-male' : 'gender-female';
+                
+                row.innerHTML = `
+                    <td>${student.id}</td>
+                    <td>${student.nisn}</td>
+                    <td>${student.nama}</td>
+                    <td class="${genderClass}">${student.gender}</td>
+                `;
+                
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Fungsi untuk menampilkan data dalam format JSON
+        function renderJson(data) {
+            jsonContent.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Fungsi untuk mencari data
+        function searchData() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            if (!searchTerm) {
+                renderTable(students);
+                return;
+            }
+            
+            const filteredData = students.filter(student => 
+                student.nisn.toLowerCase().includes(searchTerm) ||
+                student.nama.toLowerCase().includes(searchTerm) ||
+                student.gender.toLowerCase().includes(searchTerm)
+            );
+            
+            renderTable(filteredData);
+        }
+
+        // Fungsi untuk sorting data
+        function sortData(column, direction) {
+            const sortedData = [...students].sort((a, b) => {
+                let valueA = a[column];
+                let valueB = b[column];
+                
+                // Handle perbandingan angka untuk kolom ID
+                if (column === 'id') {
+                    valueA = parseInt(valueA);
+                    valueB = parseInt(valueB);
+                }
+                
+                if (valueA < valueB) return direction === 'asc' ? -1 : 1;
+                if (valueA > valueB) return direction === 'asc' ? 1 : -1;
+                return 0;
+            });
+            
+            renderTable(sortedData);
+            
+            // Update indicator arah sorting di header
+            tableHeaders.forEach(header => {
+                header.textContent = header.textContent.replace(' ↗', '').replace(' ↘', '');
+                if (header.dataset.sort === column) {
+                    header.textContent += direction === 'asc' ? ' ↗' : ' ↘';
+                }
+            });
+        }
+
+        // Event Listeners
+        searchButton.addEventListener('click', searchData);
+        
+        searchInput.addEventListener('keyup', event => {
+            if (event.key === 'Enter') {
+                searchData();
+            }
+        });
+        
+        showTableButton.addEventListener('click', () => {
+            tableContainer.style.display = 'block';
+            jsonContainer.style.display = 'none';
+        });
+        
+        showJsonButton.addEventListener('click', () => {
+            tableContainer.style.display = 'none';
+            jsonContainer.style.display = 'block';
+            renderJson(students);
+        });
+        
+        // Event listener untuk header tabel (sorting)
+        tableHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const column = header.dataset.sort;
+                
+                if (currentSort.column === column) {
+                    // Balik arah sorting jika kolom sama
+                    currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+                } else {
+                    // Set kolom baru dan reset arah ke asc
+                    currentSort.column = column;
+                    currentSort.direction = 'asc';
+                }
+                
+                sortData(currentSort.column, currentSort.direction);
+            });
+        });
+
+        // Inisialisasi
+        renderTable(students);
+    </script>
+</body>
+</html>
