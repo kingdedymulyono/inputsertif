@@ -3,7 +3,7 @@ const test = document.getElementById('test')
 const formName = document.getElementById("formName")
 
 if (localStorage.getItem("murid")) {
-    fetch("../data/murid.json")
+    fetch("./data/murid.json")
         .then(response => response.json())
         .then(data => {
             data.forEach((murid) => {
@@ -13,7 +13,7 @@ if (localStorage.getItem("murid")) {
             })
         })
     } else {
-        fetch("../data/murid.json")
+        fetch("./data/murid.json")
         .then(response => response.json())
         .then(data => {
             data.forEach((murid) => {

@@ -28,7 +28,7 @@ const error = () => {
 
 const getData = async (id) => {
     let isFound = false
-    fetch("../data/murid.json")
+    fetch("./data/murid.json")
         .then(response => response.json())
         .then(data => {
             data.forEach(murid => {
