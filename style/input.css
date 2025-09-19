@@ -1,0 +1,53 @@
+body{
+    font-family: 'Raleway';
+    background-image: url("../image/patternpad-2025-09-18-20-34-52.png");
+    background-size: cover;
+}
+#nav{
+    /* height: 10dvh; */
+    width: 100%;
+    background-color: #fff0ce;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+#nav span,i{
+    font-size: 1.4rem;
+}
+#nav img{
+    max-height: 5vh;
+}
+#top{
+    width: 100dvw;
+    height:24dvh;
+    position: fixed;
+    z-index: -99;
+    background-color: #BBAA84;
+    display: none;
+}
+#formDiv{
+    margin-top: 10dvh;
+    width: 90dvw;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, .4);
+    overflow: hidden;
+}
+#topForm{
+    background-color: #fff0ce;
+}
+#form{
+    width: 100%;
+}
+.inputForm{
+    border: 2px solid #fff0ce;
+    box-sizing: border-box;
+}
+#submit{
+    background-color: #fff;
+    border: 2px solid #fff0ce;
+    transition: all .6s;
+}
+#submit:hover{
+    background-color: #fff0ce;
+    transition: all .6s;
+}
