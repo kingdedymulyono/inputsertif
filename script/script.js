@@ -1,3 +1,10 @@
+window.addEventListener("DOMContentLoaded",()=>{
+    document.querySelectorAll(".skeleton").forEach((el)=>{
+        el.classList.remove("skeleton")
+    })
+})
+
+
 const submitBtn = document.getElementById("submitBtn")
 const nis = document.getElementById("nis")
 let students

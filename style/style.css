@@ -80,3 +80,25 @@ body {
         flex-direction: column;
     }
 }
+.skeleton{
+    background-color: lightgray;
+    color: lightgray;
+    border: 0;
+    margin: 4px 0 ;
+    padding: 4px;
+    animation: pulse 1s linear infinite;
+    image-rendering:pixelated;
+}
+
+@keyframes pulse {
+    0%{
+        opacity: 1;
+    }
+
+    50%{
+        opacity: .5;
+    }
+    100%{
+        opacity: 1;
+    }
+}

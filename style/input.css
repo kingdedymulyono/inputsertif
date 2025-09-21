@@ -2,6 +2,7 @@ body{
     font-family: 'Raleway';
     background-image: url("../image/patternpad-2025-09-18-20-34-52.png");
     background-size: cover;
+    overflow-x: hidden;
 }
 #nav{
     /* height: 10dvh; */
@@ -27,6 +28,7 @@ body{
 }
 #formDiv{
     margin-top: 10dvh;
+    margin-bottom: 10dvh;
     width: 90dvw;
     height: fit-content;
     background-color: rgba(255, 255, 255, .4);
@@ -50,4 +52,28 @@ body{
 #submit:hover{
     background-color: #fff0ce;
     transition: all .6s;
+}
+
+
+.skeleton{
+    background-color: lightgray;
+    color: lightgray;
+    border: 0;
+    margin: 4px 0 ;
+    padding: 4px;
+    animation: pulse 1s linear infinite;
+    image-rendering:pixelated;
+}
+
+@keyframes pulse {
+    0%{
+        opacity: 1;
+    }
+
+    50%{
+        opacity: .5;
+    }
+    100%{
+        opacity: 1;
+    }
 }
