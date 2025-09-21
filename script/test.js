@@ -1,8 +1,8 @@
 const getData= async () => {
-    fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
-    .then(response=>response.json())
+    fetch("https://kingdedymulyono.github.io/calculator/index.html")
+    .then(response=>response)
     .then(data=>{
-        console.table(data)
+        console.log(data.arrayBuffer)
     })
 }
 getData()

@@ -18,7 +18,7 @@ const success = (name) => {
         confirmButtonText: 'Lanjutkan'
     }).then((result)=>{
         if(result.isConfirmed){
-            location.href="../pages/input.html"
+            location.href="./pages/input.html"
         }
     })
 }
