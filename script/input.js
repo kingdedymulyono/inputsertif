@@ -10,10 +10,14 @@ const nis = document.getElementById("nis")
 const serti = document.getElementById("serti")
 const jenis = document.getElementById("jenis")
 const tingkat = document.getElementById("tingkat")
+const catatan = document.getElementById("catatan")
 const submit = document.getElementById("submit")
 const test = document.getElementById('test')
 const formName = document.getElementById("formName")
-
+const loading = document.getElementById("loading")
+const btn1 = document.getElementById("btn1")
+const btn2 = document.getElementById("btn2")
+const btn3 = document.getElementById("btn3")
 let namaMurid = ''
 let absenMurid = ''
 let nisMurid = ''
@@ -29,10 +33,6 @@ const success = (name) => {
         showCancelButton: true,
         cancelButtonText: 'Tidak',
         cancelButtonColor: '#F27474'
-    }).then((result) => {
-        // if(result.isConfirmed){
-        //     location.href="./index.html"
-        // }
     })
 }
 
@@ -75,34 +75,48 @@ if (localStorage.getItem("murid")) {
 serti.addEventListener("change", (e) => {
     console.log(e.target)
 })
-// submit.addEventListener("click", () => {
-//     // e.preventDefault()
-//     if (
-//         serti.value &&
-//         jenis.value !== 'false' &&
-//         tingkat.value !== 'false'
-//     ) {
-//         console.log("bisa wok")
-//     } else {
-//         console.log('error')
-//         error()
-//     }
-// })
 const scriptURL = 'https://script.google.com/macros/s/AKfycbw0z2rsWaQyMWv65j28sREyswLNFUd6wwtEPB4riIAEnCcp6t4r37KPxSdrti6x-2obwA/exec'
 const form = document.forms['submit-to-google-sheet']
 
 form.addEventListener('submit', e => {
-    let arrhidden=[]
-
-    no.value = absenMurid
-    nama.value = namaMurid
-    nis.value = nisMurid
-    arrhidden.push(no.value)
-    arrhidden.push(nama.value)
-    arrhidden.push(nis.value)
-    console.table(arrhidden)
+    console.log(1)
     e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-        .then(response => console.log('Success!', response))
-        .catch(error => console.error('Error!', error.message))
+    if (
+        serti.value &&
+        jenis.value !== 'false' &&
+        tingkat.value !== 'false'
+    ) {
+        if(catatan.value==''){
+            catatan.value='-'
+        }
+        no.value = absenMurid
+        nama.value = namaMurid
+        nis.value = nisMurid
+        loading.style.display='flex'
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => {
+                loading.style.display='none'
+                success(namaMurid)
+                console.log('Success!', response)
+            })
+            .catch(error => console.error('Error!', error.message))
+    } else {
+        console.log('error')
+        error()
+    }
+})
+
+btn1.addEventListener("click",(e)=>{
+    e.preventDefault()
+    document.querySelectorAll(".inputForm").forEach((input)=>{
+        input.value=''
+    })
+})
+btn2.addEventListener("click",(e)=>{
+    e.preventDefault()
+    location.href='../index.html'
+})
+btn3.addEventListener("click",(e)=>{
+    e.preventDefault()
+    location.href='https://github.com/kingdedymulyono/inputsertif/issues/new'
 })

@@ -2,12 +2,17 @@
 const tes = document.getElementById("test")
 const main = document.getElementById("main")
 
+let i = 0
+
 const apcb={
   nama:'dedyas',
   hobi:'apalah'
 }
 
 // const sheetId = "1FqF1-qo_RTRJFgDzejhe0QXq6m8esG6M09Cf7wYExeE";
+if(i==0){
+  main.innerHTML='Wait a second....'
+}
 const sheetId = "1amoeLPx9BxuCRAw0-XfVMPVguT9QdAel4X6RhRKRlCg";
 const sheetName = encodeURIComponent("sheet1");
 const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetId}/
@@ -18,6 +23,10 @@ const getData = async () => {
     .then(data => {
       let objData = convertCsvToObject(data)
       console.table(objData)
+      if(i==0){
+        main.innerHTML=''
+        i=1
+      }
       objData.map((el)=>{
         main.innerHTML+=`
         <tr>

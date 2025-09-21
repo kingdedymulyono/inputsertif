@@ -56,10 +56,9 @@
                     <input type="file" name="serti" id="serti" class="form-control inputForm rounded-4 p-3 skeleton" 
                     accept=".jpg,.png,.jpeg,.pdf,.docx" >
                 </label>
-                <label for="catatan" class="w-100 fw-semibold fs-4 my-2 skeleton">Berikan Catatan
-                    <textarea name="catatan" id="catatan" placeholder="Tuliskan Catatan"
-                        class="form-control inputForm rounded-4 p-3 skeleton" rows="5">
-                    </textarea>
+                <label for="catatan" class="w-100 fw-semibold fs-4 my-2 skeleton">
+                    <textarea name="catatan" id="catatan" placeholder="Masukkan catatan"
+                    class="form-control inputForm rounded-4 p-3 skeleton" rows="5"></textarea>
                 </label>
                 <input type="hidden" name="no" id="no">
                 <input type="hidden" name="nama" id="nama">
@@ -70,18 +69,21 @@
         </div>
     </div>
     <div id="btnBox" class="mx-auto justify-content-around align-items-center p-4 rounded-5">
-        <button type="button" class="actionBtn rounded-pill p-2 shadow-sm">
+        <button id="btn1" type="button" class="actionBtn rounded-pill p-2 shadow-sm">
             <i class="bi bi-arrow-repeat"></i>
         </button>
-        <button type="button" class="actionBtn rounded-pill p-2 shadow-sm">
+        <button id="btn2" type="button" class="actionBtn rounded-pill p-2 shadow-sm">
             <i class="bi bi-house"></i>
         </button>
-        <button type="button" class="actionBtn rounded-pill p-2 shadow-sm">
+        <button id="btn3" type="button" class="actionBtn rounded-pill p-2 shadow-sm">
             <i class="bi bi-chat-left"></i>
             <span class="p-2 rounded-3">Leave a comment for me</span>
         </button>
     </div>
 </body>
+<div id="loading" class="rounded-5">
+    <span class="loader"></span>
+</div>
 <footer></footer>
 <!-- <script src="../script/script.js"></script> -->
 <script src="../script/input.js"></script>

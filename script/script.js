@@ -46,6 +46,7 @@ const getData = async (id) => {
                 }
             })
             if (!isFound) {
+                error()
                 console.log('error  ')
             }
         })
