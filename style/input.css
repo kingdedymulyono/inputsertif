@@ -49,6 +49,10 @@ select option{
     outline: none;
     padding: 1rem;
 }
+#imgThumbnail{
+    border: 2px solid #fff0ce;
+    margin:  1rem 0;
+}
 .req::after{
     content: "*";
     color: red;
