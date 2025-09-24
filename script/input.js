@@ -73,7 +73,7 @@ if (localStorage.getItem("murid")) {
             })
         })
     }
-    let url = 'https://script.google.com/macros/s/AKfycbwc9_jyzYPXx_mr-Q-NA2Fz08Q4VqaagSlGalfcdc4SLqrqQe-B2owIZbHdw2V0jN9h/exec'
+    let url = 'https://script.google.com/macros/s/AKfycbwsyqXshFQiB_K2g5CA3B8rtGKMEm6qLKJ_Eo7LyK19oC1cTqvwHmEe24xRhZeaoyC19w/exec'
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
     serti.addEventListener("change", () => {
         document.querySelector("#thumbnailText").style.display = 'none'

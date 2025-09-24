@@ -1,3 +1,4 @@
+
 body {
     background-image: url("../image/patternpad-2025-09-18-20-34-52.png");
     background-size: cover;
@@ -6,6 +7,20 @@ body {
     padding: 0;
     min-width: 100dvw;
     min-height: 100dvh;
+    overflow-x: hidden;
+}
+
+#welcome{
+    width: 10dvw;
+    height: 10dvw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #fff0ce;
+    z-index: 99 ;
+    /* animation-delay: 4s; */
+    animation:start 3.6s forwards cubic-bezier(0.075, 0.82, 0.165, 1) ;
 }
 
 #nav {
@@ -108,5 +123,15 @@ body {
     }
     100%{
         opacity: 1;
+    }
+}
+@keyframes start {
+    80%{
+        opacity: 100;
+    }
+    100%{
+        opacity: 0;
+        width: 120dvw;
+        height: 120dvw;
     }
 }
