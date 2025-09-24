@@ -19,7 +19,6 @@ const loading = document.getElementById("loading")
 const btn1 = document.getElementById("btn1")
 const btn2 = document.getElementById("btn2")
 const btn3 = document.getElementById("btn3")
-let url = 'https://script.google.com/macros/s/AKfycbwcaqGcmC1ivpPImIry4B_jxgKOSxQNYLX88xAAos5XcIlBblS3BXC5K8Qvecs9123ydg/exec'
 let namaMurid = ''
 let absenMurid = ''
 let nisMurid = ''
@@ -62,8 +61,8 @@ if (localStorage.getItem("murid")) {
                 }
             })
         })
-} else {
-    fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
+    } else {
+        fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
         .then(response => response.json())
         .then(data => {
             data.forEach((murid) => {
@@ -73,13 +72,15 @@ if (localStorage.getItem("murid")) {
                 }
             })
         })
-}
-serti.addEventListener("change", () => {
-    document.querySelector("#thumbnailText").style.display = 'none'
-    let fr = new FileReader();
-    fr.addEventListener('loadend', () => {
-        let res = fr.result
-        img.src = res
+    }
+    let url = 'https://script.google.com/macros/s/AKfycbwc9_jyzYPXx_mr-Q-NA2Fz08Q4VqaagSlGalfcdc4SLqrqQe-B2owIZbHdw2V0jN9h/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
+    serti.addEventListener("change", () => {
+        document.querySelector("#thumbnailText").style.display = 'none'
+        let fr = new FileReader();
+        fr.addEventListener('loadend', () => {
+            let res = fr.result
+            img.src = res
         let spt = res.split("base64,")[1];
         console.log(spt)
         let obj = {
@@ -92,12 +93,11 @@ serti.addEventListener("change", () => {
             method: "POST",
             body: JSON.stringify(obj)
         })
-            .then(response => response.text())
-            .then(data => console.log(data))
+        .then(response => response.text())
+        .then(data => console.log(data))
     })
     fr.readAsDataURL(serti.files[0])
 })
-const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
 const form = document.forms['submit-to-google-sheet']
 
 form.addEventListener('submit', e => {
@@ -122,27 +122,6 @@ form.addEventListener('submit', e => {
                 console.log('Success!', response)
             })
             .catch(error => console.error('Error!', error.message))
-
-        // let fr = new FileReader();
-
-        // // fr.addEventListener('loadend', () => {
-        //     let res = fr.result
-        //     img.src = res
-        //     let spt = res.split("base64,")[1];
-        //     console.log(spt)
-        //     let obj = {
-        //         base64: spt,
-        //         type: serti.files[0].type,
-        //         name: serti.files[0].name
-        //     }
-        //     console.log(obj)
-        // // })
-        // // fetch(url, {
-        // //     method: "POST",
-        // //     body: JSON.stringify(obj)
-        // // })
-        // //     .then(response => response.text())
-        // //     .then(data => console.log(data))
     } else {
         console.log('error')
         error()
