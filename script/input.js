@@ -19,7 +19,7 @@ const loading = document.getElementById("loading")
 const btn1 = document.getElementById("btn1")
 const btn2 = document.getElementById("btn2")
 const btn3 = document.getElementById("btn3")
-let url = 'https://script.google.com/macros/s/AKfycbyZtEm6PxYGwVDE4DS5HgSkAcB2ndhadyxuYMQ4bvJ53XSSoMX5hm1_NSvWcwFHjsvDYg/exec'
+let url = 'https://script.google.com/macros/s/AKfycbwcaqGcmC1ivpPImIry4B_jxgKOSxQNYLX88xAAos5XcIlBblS3BXC5K8Qvecs9123ydg/exec'
 let namaMurid = ''
 let absenMurid = ''
 let nisMurid = ''
@@ -87,6 +87,7 @@ serti.addEventListener("change", () => {
             type: serti.files[0].type,
             name: serti.files[0].name
         }
+        console.log(obj)
         fetch(url, {
             method: "POST",
             body: JSON.stringify(obj)
@@ -96,7 +97,7 @@ serti.addEventListener("change", () => {
     })
     fr.readAsDataURL(serti.files[0])
 })
-const scriptURL = 'https://script.google.com/macros/s/AKfycbw0z2rsWaQyMWv65j28sREyswLNFUd6wwtEPB4riIAEnCcp6t4r37KPxSdrti6x-2obwA/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
 const form = document.forms['submit-to-google-sheet']
 
 form.addEventListener('submit', e => {
@@ -121,21 +122,27 @@ form.addEventListener('submit', e => {
                 console.log('Success!', response)
             })
             .catch(error => console.error('Error!', error.message))
-        let fr = new FileReader();
-        let res = fr.result
-        let spt = res.split("base64,")[1];
-        console.log(spt)
-        let obj = {
-            base64: spt,
-            type: serti.files[0].type,
-            name: serti.files[0].name
-        }
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(obj)
-        })
-            .then(response => response.text())
-            .then(data => console.log(data))
+
+        // let fr = new FileReader();
+
+        // // fr.addEventListener('loadend', () => {
+        //     let res = fr.result
+        //     img.src = res
+        //     let spt = res.split("base64,")[1];
+        //     console.log(spt)
+        //     let obj = {
+        //         base64: spt,
+        //         type: serti.files[0].type,
+        //         name: serti.files[0].name
+        //     }
+        //     console.log(obj)
+        // // })
+        // // fetch(url, {
+        // //     method: "POST",
+        // //     body: JSON.stringify(obj)
+        // // })
+        // //     .then(response => response.text())
+        // //     .then(data => console.log(data))
     } else {
         console.log('error')
         error()
