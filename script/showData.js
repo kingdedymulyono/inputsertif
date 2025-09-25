@@ -1,6 +1,7 @@
 
 const tes = document.getElementById("test")
 const main = document.getElementById("main")
+const mainData = document.getElementById("mainContainer")
 const test = document.getElementById("test")
 const testList = document.getElementById("testList")
 const testLink = document.getElementById("testLink")
@@ -9,7 +10,7 @@ let link
 let i = 0
 
 class Murid {
-  constructor(absen, nis, nama, jenis, tingkat, catatan, img) {
+  constructor(absen, nis, nama, jenis, tingkat, catatan, img, id) {
     this.absen = absen
     this.nis = nis
     this.nama = nama
@@ -17,29 +18,74 @@ class Murid {
     this.tingkat = tingkat
     this.catatan = catatan
     this.img = img.replace('&export=download', "")
+    this.Sertifikat_ID = id
   }
   getDetail() {
-    swal.fire({
-      icon: 'success',
-      title: `Prestasi ${this.nama}`,
-      html: `
-    <ul id="test" class="list-group w-75 mx-auto">
-        <li class="list-group-item text-start active">Nama : ${this.nama}</li>
-        <li class="list-group-item text-start">Absen : ${this.absen}</li>
-        <li class="list-group-item text-start">Nis : ${this.nis}</li>
-        <li class="list-group-item text-start">Jenis : ${this.jenis}</li>
-        <li class="list-group-item text-start">Tingkat : ${this.tingkat}</li>
-        <li class="list-group-item text-start">Catatan : ${this.catatan}</li>
-        <li class="list-group-item text-start">Link sertifikat : 
-        <a href="${this.img}" target="_blank">Klik Disini</a></li>
-    </ul>
-      `,
-      confirmButtonText:"Lanjutkan",
-      confirmButtonColor:"#A5DC86"
-    })
+    mainData.innerHTML=`
+      <div id="mainData" class="rounded-5">
+        <div class="nameBox p-4 w-100 d-flex justify-content-between align-items-center">
+            <img src="../image/blank.webp" class="w-25 rounded-circle" alt="">
+            <div class="d-flex justify-content-start flex-column  ">
+              <h3 class="text-start mx-4 fw-semibold">${this.nama}</h3>
+              <h5 class="text-start mx-4 fw-light">${this.nis}</h5>
+            </div>
+        </div>
+        <ul id="mainList" class="mainList list-group w-100 mx-auto p-4 rounded-4">
+            <div id="testList">
+                <li class="list-group-item activeList">
+                    <a href="">Jenis :</a>
+                    <span>${this.jenis}</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="">Tingkat :</a>
+                    <span>${this.tingkat}</span>
+                </li>
+                <li class="list-group-item">
+                    <a href="">Catatan :</a>
+                    <span>${this.catatan}</span>
+                </li>
+                <li class="list-group-item d-flex align-items-center ">
+                    <a href="">Sertifikat :</a>
+                    <a href="${this.img}" class="btnImg p-2 rounded-3 mx-2">Klik Disini</a>
+                </li>
+                <div class="d-flex justify-content-start align-items-center gap-2 mt-2">
+                  <a class="btnImg p-2 rounded-3" onclick="closeMain()">Close</a>
+                  <span class="text-secondary fs-6 font-monospace">${this.Sertifikat_ID}</span>
+                </div>
+                </div>
+                </ul>
+    </div> 
+    `
+    // swal.fire({
+    //   icon: 'success',
+    //   title: `Prestasi ${this.nama}`,
+    //   html: `
+    // <ul id="test" class="list-group w-75 mx-auto">
+    //     <li class="list-group-item text-start active">Nama : ${this.nama}</li>
+    //     <li class="list-group-item text-start">Absen : ${this.absen}</li>
+    //     <li class="list-group-item text-start">Nis : ${this.nis}</li>
+    //     <li class="list-group-item text-start">Jenis : ${this.jenis}</li>
+    //     <li class="list-group-item text-start">Tingkat : ${this.tingkat}</li>
+    //     <li class="list-group-item text-start">Catatan : ${this.catatan}</li>
+    //     <li class="list-group-item text-start">Link sertifikat : 
+    //     <a href="${this.img}" target="_blank">Klik Disini</a></li>
+    //     <li class="list-group-item text-start">ID : ${this.Sertifikat_ID}</li>
+    // </ul>
+    //   `,
+    //   confirmButtonText:"Lanjutkan",
+    //   confirmButtonColor:"#A5DC86"
+    // })
+    
   }
 }
 // const sheetId = "1FqF1-qo_RTRJFgDzejhe0QXq6m8esG6M09Cf7wYExeE";
+
+const closeMain = () => {
+  document.getElementById("mainData").style.top="100%";
+  document.getElementById("mainData").style.opacity=0;
+  mainData.innerHTML=''
+}
+
 if (i == 0) {
   testList.innerHTML = 'Wait a second....'
 }
@@ -59,7 +105,7 @@ const getData = async () => {
         i = 1
       }
       objData.map((el) => {
-        students[x] = new Murid(el.no, el.nis, el.nama, el.jenis, el.tingkat, el.catatan, el.serti)
+        students[x] = new Murid(el.no, el.nis, el.nama, el.jenis, el.tingkat, el.catatan, el.serti ,el.sertifikat_ID)
         console.table(students[x])
         test.innerHTML += `
         <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -67,7 +113,7 @@ const getData = async () => {
           <span class="text-secondary">${x}.</span>
           <span>${el.nama}</span>
           </div>
-            <button id=${x} type="button" class="muridBtn btn btn-success">Detail</button>
+            <button id=${x} type="button" class="muridBtn p-2 rounded-3">Detail</button>
         </li>`
         x++
       })

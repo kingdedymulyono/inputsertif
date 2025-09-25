@@ -1,9 +1,76 @@
-/* @media (max-width:720px) {
-    table{
-        font-size: 12px;
+body{
+    background-image: url("../image/patternpad-2025-09-18-20-34-52.png");
+}
+nav{
+    background-color: #fff0ce;
+}
+.raleway{
+    font-family: 'Raleway';
+}
+#mainData {
+    min-width: 64dvw;
+    min-height: 50dvh;
+    width: fit-content;
+    height: fit-content;
+    background-color: rgba(255, 255, 255, .8);
+    backdrop-filter: blur(8px);
+    /* background-color: black; */
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    z-index:99;
+    border: 4px solid #fff0ce;
+    transition: all .5s;
+    animation: pop-up 2s forwards cubic-bezier(0.075, 0.82, 0.165 , 1);
+}
+
+.nameBox {
+    font-family: "Raleway";
+}
+
+.mainList{
+    font-family: 'Raleway';
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.mainList a{
+    color: black;
+    text-decoration: none;
+}
+.topList{
+    background-color: #fff0ce;
+}
+.activeList{
+    background-color: #fff0ce;
+    font-weight: 600;
+}
+
+.btnImg , .muridBtn{
+    font-size: 1.2rem;
+    background-color: #fff0ce;
+    color: black;
+    cursor: pointer;
+    border: none;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    height: 50dvh;
+    background-image: linear-gradient(to top , #fff0ce , #fff0ce , transparent);
+}
+@keyframes pop-up {
+    to{
+        opacity: 100;
+        top: 50%;
     }
-    .firstRow{
-        display: none;
+}
+
+@media (max-width:720px) {
+    #mainData {
+        min-width: 90dvw;
+        width: fit-content;
     }
-    
-} */
+}

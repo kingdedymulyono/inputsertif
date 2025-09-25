@@ -8,6 +8,7 @@ const no = document.getElementById("no")
 const nama = document.getElementById("nama")
 const nis = document.getElementById("nis")
 const serti = document.getElementById("serti")
+const sertifikat_ID = document.getElementById("sertifikat_ID")
 const img = document.getElementById("thumbnail")
 const jenis = document.getElementById("jenis")
 const tingkat = document.getElementById("tingkat")
@@ -47,6 +48,21 @@ const error = () => {
     })
 }
 
+const getDate = () => {
+    let d = new Date()
+    let year = d.getFullYear().toString()
+    let month = d.getMonth().toString()
+    let date = d.getDate().toString()
+    let hours = d.getHours().toString()
+    let minute = d.getMinutes().toString()
+    let second = d.getSeconds().toString()
+
+    let dateResult = date + month + year + hours + minute + second
+
+    return dateResult
+
+}
+
 if (localStorage.getItem("murid")) {
     fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
         .then(response => response.json())
@@ -61,8 +77,8 @@ if (localStorage.getItem("murid")) {
                 }
             })
         })
-    } else {
-        fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
+} else {
+    fetch("https://kingdedymulyono.github.io/datamurid/murid.json")
         .then(response => response.json())
         .then(data => {
             data.forEach((murid) => {
@@ -72,15 +88,15 @@ if (localStorage.getItem("murid")) {
                 }
             })
         })
-    }
-    let url = 'https://script.google.com/macros/s/AKfycbwsyqXshFQiB_K2g5CA3B8rtGKMEm6qLKJ_Eo7LyK19oC1cTqvwHmEe24xRhZeaoyC19w/exec'
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
-    serti.addEventListener("change", () => {
-        document.querySelector("#thumbnailText").style.display = 'none'
-        let fr = new FileReader();
-        fr.addEventListener('loadend', () => {
-            let res = fr.result
-            img.src = res
+}
+let url = 'https://script.google.com/macros/s/AKfycbwsyqXshFQiB_K2g5CA3B8rtGKMEm6qLKJ_Eo7LyK19oC1cTqvwHmEe24xRhZeaoyC19w/exec'
+const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
+serti.addEventListener("change", () => {
+    document.querySelector("#thumbnailText").style.display = 'none'
+    let fr = new FileReader();
+    fr.addEventListener('loadend', () => {
+        let res = fr.result
+        img.src = res
         let spt = res.split("base64,")[1];
         console.log(spt)
         let obj = {
@@ -93,8 +109,8 @@ if (localStorage.getItem("murid")) {
             method: "POST",
             body: JSON.stringify(obj)
         })
-        .then(response => response.text())
-        .then(data => console.log(data))
+            .then(response => response.text())
+            .then(data => console.log(data))
     })
     fr.readAsDataURL(serti.files[0])
 })
@@ -114,6 +130,7 @@ form.addEventListener('submit', e => {
         no.value = absenMurid
         nama.value = namaMurid
         nis.value = nisMurid
+        sertifikat_ID.value = getDate()
         loading.style.display = 'flex'
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
@@ -122,6 +139,7 @@ form.addEventListener('submit', e => {
                 console.log('Success!', response)
             })
             .catch(error => console.error('Error!', error.message))
+            
     } else {
         console.log('error')
         error()
