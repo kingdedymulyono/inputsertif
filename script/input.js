@@ -89,8 +89,9 @@ if (localStorage.getItem("murid")) {
             })
         })
 }
-let url = 'https://script.google.com/macros/s/AKfycbwsyqXshFQiB_K2g5CA3B8rtGKMEm6qLKJ_Eo7LyK19oC1cTqvwHmEe24xRhZeaoyC19w/exec'
+let url = 'https://script.google.com/macros/s/AKfycbwNhr4RVv1acWAZNQTqs5pp4SXuYEzzKczv33Fl7jMC5fcPNdQ7suF2K6nreNQUUR-hHw/exec'
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
+let obj
 serti.addEventListener("change", () => {
     document.querySelector("#thumbnailText").style.display = 'none'
     let fr = new FileReader();
@@ -99,18 +100,12 @@ serti.addEventListener("change", () => {
         img.src = res
         let spt = res.split("base64,")[1];
         console.log(spt)
-        let obj = {
+        obj = {
             base64: spt,
             type: serti.files[0].type,
             name: serti.files[0].name
         }
         console.log(obj)
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(obj)
-        })
-            .then(response => response.text())
-            .then(data => console.log(data))
     })
     fr.readAsDataURL(serti.files[0])
 })
@@ -135,11 +130,17 @@ form.addEventListener('submit', e => {
         fetch(scriptURL, { method: 'POST', body: new FormData(form) })
             .then(response => {
                 loading.style.display = 'none'
-                success(namaMurid)
+                success(namaMurid)  
                 console.log('Success!', response)
             })
             .catch(error => console.error('Error!', error.message))
-            
+
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(obj)
+        })
+            .then(response => response.text())
+            .then(data => console.log(data))
     } else {
         console.log('error')
         error()
