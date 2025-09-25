@@ -89,7 +89,7 @@ if (localStorage.getItem("murid")) {
             })
         })
 }
-let url = 'https://script.google.com/macros/s/AKfycbwNhr4RVv1acWAZNQTqs5pp4SXuYEzzKczv33Fl7jMC5fcPNdQ7suF2K6nreNQUUR-hHw/exec'
+let url = 'https://script.google.com/macros/s/AKfycbxylH9HZteGCxC50IdorMm--LttbKTl3KqLuZZ_-lQIY8C_-ZeIdWBTBK_2evPvlOoqzw/exec'
 const scriptURL = 'https://script.google.com/macros/s/AKfycbzdkXDizGiX8uAgHTW04U5N6RX7LsK6k61yVfeBeFuMLsLMPahch9LzyZtNax0ivHADKw/exec'
 let obj
 serti.addEventListener("change", () => {

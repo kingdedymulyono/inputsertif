@@ -107,15 +107,18 @@ const getData = async () => {
       objData.map((el) => {
         students[x] = new Murid(el.no, el.nis, el.nama, el.jenis, el.tingkat, el.catatan, el.serti ,el.sertifikat_ID)
         console.table(students[x])
-        test.innerHTML += `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        if(students[x].nama!==''){
+
+          test.innerHTML += `
+          <li class="list-group-item d-flex justify-content-between align-items-center">
           <div>
           <span class="text-secondary">${x}.</span>
           <span>${el.nama}</span>
           </div>
-            <button id=${x} type="button" class="muridBtn p-2 rounded-3">Detail</button>
-        </li>`
-        x++
+          <button id=${x} type="button" class="muridBtn p-2 rounded-3">Detail</button>
+          </li>`
+          x++
+        }
       })
       document.querySelectorAll(".muridBtn").forEach((btn) => {
         btn.addEventListener('click', () => {
